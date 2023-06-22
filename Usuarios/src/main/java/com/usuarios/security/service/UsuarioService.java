@@ -1,4 +1,4 @@
-package com.example.demo.service;
+package com.usuarios.security.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.errors.ErrorNoExiste;
-import com.example.demo.model.Usuario;
-import com.example.demo.repository.UsuarioRepo;
+import com.usuarios.security.errors.ErrorNoExiste;
+import com.usuarios.security.model.Usuario;
+import com.usuarios.security.repository.UsuarioRepo;
 
 @Service
 public class UsuarioService {
@@ -30,7 +30,7 @@ public class UsuarioService {
 
 	public Usuario insertar(Usuario user) {
 		user.setId_usuario(0l);
-		if (repo.existsByUsername(user.getUsername())) {
+		if (repo.existsByUsername(user.getUs_username())) {
 			return null;
 		}
 
@@ -42,7 +42,7 @@ public class UsuarioService {
 		
 		if (oUser.isEmpty())
 			throw new ErrorNoExiste("Al actualizar Usuario " + user.getId_usuario());
-		if (repo.existsByUsername(user.getUsername())) {
+		if (repo.existsByUsername(user.getUs_username())) {
 			return null;
 		}
 		return repo.save(user);

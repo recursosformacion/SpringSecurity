@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.usuarios.security.controller;
 
 import java.util.List;
 
@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.errors.ErrorNoExiste;
-import com.example.demo.model.Usuario;
-import com.example.demo.service.UsuarioService;
+import com.usuarios.security.errors.ErrorNoExiste;
+import com.usuarios.security.model.Usuario;
+import com.usuarios.security.service.UsuarioService;
+
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -24,10 +25,6 @@ public class UsuarioController {
 
 	@Autowired
 	UsuarioService cDao;
-
-	@Autowired
-	PasswordEncoder passwordEncoder;
-
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> leer(@PathVariable("id") String ids) {
@@ -61,7 +58,6 @@ public class UsuarioController {
 
 	@PostMapping
 	public ResponseEntity<Usuario> insertar(@RequestBody Usuario usr){
-		usr.setPassword(passwordEncoder.encode(usr.getPassword()));
 		Usuario us = cDao.insertar(usr);
 		return ResponseEntity.ok(us);
 	}
@@ -73,7 +69,7 @@ public class UsuarioController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity borrar(@PathVariable("id") String ids) throws ErrorNoExiste{
+	public ResponseEntity<String> borrar(@PathVariable("id") String ids) throws ErrorNoExiste{
 		cDao.delete(Long.parseLong(ids));
 		return ResponseEntity.ok("registro borrado");
 	}
