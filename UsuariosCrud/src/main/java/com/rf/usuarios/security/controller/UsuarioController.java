@@ -39,7 +39,6 @@ public class UsuarioController {
 		}catch (Exception e) {
 			 us = new Usuario();
 		}
-
 		return ResponseEntity.ok(us);
 	}
 

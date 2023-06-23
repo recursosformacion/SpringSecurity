@@ -33,7 +33,6 @@ public class UsuarioService {
 		if (repo.existsByUsUsername(user.getUsUsername())) {
 			return null;
 		}
-
 		return repo.save(user);
 	}
 
@@ -43,7 +42,8 @@ public class UsuarioService {
 		if (oUser.isEmpty())
 			throw new ErrorNoExiste("Al actualizar Usuario " + user.getIdUsuario());
 		Usuario usrOld = oUser.get();
-		if (!usrOld.getUsUsername().equals(user.getUsUsername())  && repo.existsByUsUsername(user.getUsUsername())) {
+		if (!usrOld.getUsUsername().equals(user.getUsUsername())  
+				&& repo.existsByUsUsername(user.getUsUsername())) {
 			return null;
 		}
 		System.out.println(user);
