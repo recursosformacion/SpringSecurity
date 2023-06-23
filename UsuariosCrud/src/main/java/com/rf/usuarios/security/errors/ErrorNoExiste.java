@@ -1,4 +1,4 @@
-package com.usuarios.security.errors;
+package com.rf.usuarios.security.errors;
 
 public class ErrorNoExiste extends Exception{
 

@@ -1,4 +1,4 @@
-package com.usuarios.security.service;
+package com.rf.usuarios.security.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.usuarios.security.errors.ErrorNoExiste;
-import com.usuarios.security.model.Usuario;
-import com.usuarios.security.repository.UsuarioRepo;
+import com.rf.usuarios.security.errors.ErrorNoExiste;
+import com.rf.usuarios.security.model.Usuario;
+import com.rf.usuarios.security.repository.UsuarioRepo;
 
 @Service
 public class UsuarioService {
@@ -29,8 +29,8 @@ public class UsuarioService {
 	}
 
 	public Usuario insertar(Usuario user) {
-		user.setId_usuario(0l);
-		if (repo.existsByUsername(user.getUs_username())) {
+		user.setIdUsuario(0l);
+		if (repo.existsByUsUsername(user.getUsUsername())) {
 			return null;
 		}
 
@@ -38,13 +38,15 @@ public class UsuarioService {
 	}
 
 	public Usuario actualiza(Usuario user) throws ErrorNoExiste {
-		Optional<Usuario> oUser = repo.findById(user.getId_usuario());
+		Optional<Usuario> oUser = repo.findById(user.getIdUsuario());
 		
 		if (oUser.isEmpty())
-			throw new ErrorNoExiste("Al actualizar Usuario " + user.getId_usuario());
-		if (repo.existsByUsername(user.getUs_username())) {
+			throw new ErrorNoExiste("Al actualizar Usuario " + user.getIdUsuario());
+		Usuario usrOld = oUser.get();
+		if (!usrOld.getUsUsername().equals(user.getUsUsername())  && repo.existsByUsUsername(user.getUsUsername())) {
 			return null;
 		}
+		System.out.println(user);
 		return repo.save(user);
 	}
 
