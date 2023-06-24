@@ -2,6 +2,7 @@ package com.rf.usuarios.security.controller;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,9 @@ public class UsuarioController {
 
 	@Autowired
 	UsuarioService cDao;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> leer(@PathVariable("id") String ids) {
@@ -56,13 +60,22 @@ public class UsuarioController {
 
 	@PostMapping
 	public ResponseEntity<Usuario> insertar(@RequestBody Usuario usr){
+		usr.setUsPassword(passwordEncoder.encode(usr.getUsPassword()));
 		Usuario us = cDao.insertar(usr);
 		return ResponseEntity.ok(us);
 	}
 
 	@PutMapping
 	public ResponseEntity<Usuario> actualiza(@RequestBody Usuario usr) throws ErrorNoExiste{
-		Usuario us = cDao.actualiza(usr);
+		Usuario us;
+		try {
+		 us = cDao.leerUno(usr.getIdUsuario());
+		 usr.setUsPassword(us.getUsPassword());   //cancelo modificacion de password
+		 us = cDao.actualiza(usr);
+		}catch (Exception e) {
+			 us = new Usuario();
+		}
+		
 		return ResponseEntity.ok(us);
 	}
 

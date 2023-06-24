@@ -2,15 +2,22 @@ package com.rf.usuarios.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.rf.usuarios.security.service.UsuarioDetailService;
 
 @Configuration
 public class SecurityConfiguration {
 	
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
+	BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder;
+	}
+	
+	@Bean
+	UserDetailsService userDetailsDervice() {
+		return new UsuarioDetailService();
 	}
 }
