@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import com.rf.usuarios.security.model.Usuario;
 import com.rf.usuarios.security.model.UsuarioSec;
 import com.rf.usuarios.security.repository.UsuarioRepo;
-
 
 public class UsuarioDetailService implements UserDetailsService{
 

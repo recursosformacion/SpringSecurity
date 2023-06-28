@@ -84,5 +84,16 @@ public class UsuarioSec implements UserDetails{
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+
+	public Usuario getUser() {
+		return user;
+	}
+
+
+	public void setUser(Usuario user) {
+		this.user = user;
+	}
+	
 	
 }
